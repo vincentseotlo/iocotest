@@ -44,13 +44,15 @@ def flag_survivor():
 		data = json.loads(request.data)
 		user = Survivors.query.get(data["infected"])
 		if user != None:
-			flags = json.loads(user.flags) # updating json refused; this is a workaround
-			flags[data["id"]] = True
-			infected = True if len(flags) >= 3 else False
-			user.flags = json.dumps(flags)
-			user.infected = infected
-			db.session.commit()
-			result["success"] = True;
+			count = Infected.query.filter_by(reporter=data["id"]).count()
+			if count == 0:
+				flag = Infected(survivor=user.id, reporter=data["id"])
+				db.session.add(flag)
+				#db.session.commit()
+				count = Infected.query.filter_by(survivor=user.id).count()
+				user.infected = True if count >= 3 else False
+				db.session.commit()
+				result["success"] = True;
 		else:
 			status = 404
 	except Exception as e:
