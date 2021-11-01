@@ -1,7 +1,7 @@
 from app import db
 
-
 class Survivors(db.Model):
+   __tablename__ = "survivors"
    id = db.Column('id', db.Integer, primary_key = True)
    name = db.Column(db.String(100))
    gender = db.Column(db.String(50))
@@ -20,9 +20,10 @@ class Survivors(db.Model):
                 "lon":self.lon}
 
 class Inventory(db.Model):
-   #survivor = db.Column(db.String(100), db.ForeignKey("Survivors.id"), primary_key = True)
-   survivor = db.Column(db.String(100), primary_key = True)
+   __tablename__ = "inventory"
+   survivor = db.Column(db.String(100), db.ForeignKey("survivors.id"), primary_key = True)
    name = db.Column(db.String(100), primary_key = True)
+
 
 db.drop_all()
 db.create_all()
