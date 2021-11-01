@@ -123,3 +123,17 @@ def get_data(infected, orderBy=None):
 		print(e)
 		result["success"] = False;
 	return (result, status)
+
+def get_stats(infected):
+
+	result = {"success": False, "percentage":None}
+	status = 200
+	try:
+		many = Survivors.query.filter_by(infected=infected).count()
+		size = Survivors.query.count()
+		size = 1 if size == 0 else size
+		result["percentage"] = many * 100 / size;
+	except Exception as e:
+		print(e)
+		result["success"] = False
+	return (result, status)

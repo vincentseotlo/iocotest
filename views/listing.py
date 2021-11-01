@@ -1,24 +1,13 @@
 import json
-import requests
-import operator
 from flask import request
 from flask import Response
 from app import app
+from controllers import survivorctl
+from controllers import robotworld
 
 
 def get_data(infected, orderBy=None):
-	result = {"success": False, "data":[]}
-	status = 200
-	assert(orderBy in ['id', 'name', 'gender', 'location', None])
-	try:
-		data = []
-		users = Survivors.query.filter_by(infected=infected).all().order_by(orderBy)
-		for user in users:
-			data.append(user.to_json())
-		result["data"] = data
-	except Exception as e:
-		print(e)
-		result["success"] = False;
+	result, status = survivorctl.get_data(infected, orderBy)
 	return Response(json.dumps(result), status=status, mimetype='application/json')
 
 @app.route('/listing/robot_locations', methods=['GET'])
@@ -29,16 +18,7 @@ def robot_locations():
 	output: list of robots details 
 	"""
 	orderBy = request.args.get('orderBy')
-	assert(orderBy in ['category', 'model', 'serialNumber', 'manufacturedDate', None])
-	response = requests.get(app.config.get("ROBOTS_URL"))
-	status = response.status_code
-	result = {"success": False, "data":[]}
-
-	if(status == 200):
-		resp = response.json()
-		if orderBy != None:
-			resp.sort(key=operator.itemgetter(orderBy))
-		result["data"] = resp
+	result, status = robotworld.robot_locations(orderBy)
 
 	return Response(json.dumps(result), status=status, mimetype='application/json')
 
