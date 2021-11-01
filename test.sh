@@ -39,6 +39,6 @@ curl -d "${json}" -H 'Content-Type: application/json' -X DELETE http://127.0.0.1
 curl -X GET http://127.0.0.1:5000/stats/infected_survivors
 curl -X GET http://127.0.0.1:5000/stats/non_infected_survivors
 
-curl -X GET http://127.0.0.1:5000/listing/robot_locations?orderBy=model
-curl -X GET http://127.0.0.1:5000/listing/infected_survivors?orderBy=name
-curl -X GET http://127.0.0.1:5000/listing/non_infected_survivors?orderBy=name
+curl -X GET 'http://127.0.0.1:5000/listing/robot_locations?orderBy=model'
+curl -X GET 'http://127.0.0.1:5000/listing/infected_survivors?orderBy=name'
+curl -X GET 'http://127.0.0.1:5000/listing/non_infected_survivors?orderBy=name'
