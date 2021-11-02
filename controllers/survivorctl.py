@@ -43,7 +43,7 @@ def flag_survivor(data):
 				db.session.add(flag)
 				#db.session.commit()
 				user.count = user.count + 1
-				user.infected = True if count >= 3 else False
+				user.infected = True if user.count >= 3 else False
 				db.session.commit()
 				result["success"] = True;
 		else:
@@ -121,7 +121,7 @@ def get_data(infected, orderBy=None):
 	assert(orderBy in ['id', 'name', 'gender', 'location', None])
 	try:
 		data = []
-		users = Survivors.query.filter_by(infected=infected).all().order_by(orderBy)
+		users = Survivors.query.filter_by(infected=infected).order_by(orderBy).all()
 		for user in users:
 			data.append(user.to_json())
 		result["data"] = data

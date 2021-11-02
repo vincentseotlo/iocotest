@@ -14,6 +14,7 @@ class Survivors(db.Model):
       return {"name": self.name,
                 "id": self.id,
                 "gender":self.gender,
+                "count":self.count,
                 "infected":self.infected,
                 "lat":self.lat,
                 "lon":self.lon}
