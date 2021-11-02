@@ -67,7 +67,7 @@ def add_survivor(data):
 		user = Survivors.query.get(data["id"])
 		if user != None:
 			return (result, status)
-			
+
 		user = Survivors(	id=data["id"], 
 							name=data["name"], 
 							count=0,
@@ -149,4 +149,10 @@ def get_stats(infected):
 	except Exception as e:
 		print(e)
 		result["success"] = False
+	return (result, status)
+
+def get_stats(infected):
+
+	result = {"success": False, "state":"Function to be implemented"}
+	status = 200
 	return (result, status)

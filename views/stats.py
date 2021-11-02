@@ -25,3 +25,14 @@ def stats_non_infected_survivors():
 	output: array of non infected survivors
 	"""
 	return get_stats(False)
+
+@app.route('/stats/get_list_of_reporters', methods=['GET'])
+def stats_non_infected_survivors():
+	"""
+	Show Percentage of non-infected survivors.
+	input: None
+	output: array of non infected survivors
+	"""
+	result, status = survivorctl.get_reporters()
+	return Response(json.dumps(result), status=status, mimetype='application/json')
+
