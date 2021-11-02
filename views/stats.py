@@ -27,7 +27,7 @@ def stats_non_infected_survivors():
 	return get_stats(False)
 
 @app.route('/stats/get_list_of_reporters', methods=['GET'])
-def stats_non_infected_survivors():
+def get_list_of_reporters():
 	"""
 	Show Percentage of non-infected survivors.
 	input: None

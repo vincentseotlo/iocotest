@@ -151,7 +151,7 @@ def get_stats(infected):
 		result["success"] = False
 	return (result, status)
 
-def get_stats(infected):
+def get_reporters():
 
 	result = {"success": False, "state":"Function to be implemented"}
 	status = 200
