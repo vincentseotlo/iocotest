@@ -66,7 +66,7 @@ def add_survivor(data):
 	try:
 		user = Survivors(	id=data["id"], 
 							name=data["name"], 
-							flags='{}',
+							count=0,
 							gender=data["gender"],
 							lat=data["lat"], 
 							lon=data["lon"],
