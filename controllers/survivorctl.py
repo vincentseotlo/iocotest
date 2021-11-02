@@ -64,6 +64,10 @@ def add_survivor(data):
 	result = {"success": True}
 	status = 200
 	try:
+		user = Survivors.query.get(data["id"])
+		if user != None:
+			return (result, status)
+			
 		user = Survivors(	id=data["id"], 
 							name=data["name"], 
 							count=0,
@@ -77,6 +81,7 @@ def add_survivor(data):
 			inv = Inventory(survivor=user.id, name=inp)
 			db.session.add(inv)
 		db.session.commit()
+		result["success"] = True
 	except Exception as e:
 		print(e)
 		result["success"] = False;
@@ -125,6 +130,7 @@ def get_data(infected, orderBy=None):
 		for user in users:
 			data.append(user.to_json())
 		result["data"] = data
+		result["success"] = True
 	except Exception as e:
 		print(e)
 		result["success"] = False;
@@ -138,7 +144,8 @@ def get_stats(infected):
 		many = Survivors.query.filter_by(infected=infected).count()
 		size = Survivors.query.count()
 		size = 1 if size == 0 else size
-		result["percentage"] = many * 100 / size;
+		result["percentage"] = many * 100 / size
+		result["success"] = True
 	except Exception as e:
 		print(e)
 		result["success"] = False
