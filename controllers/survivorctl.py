@@ -42,7 +42,7 @@ def flag_survivor(data):
 				flag = Infected(survivor=user.id, reporter=data["id"])
 				db.session.add(flag)
 				#db.session.commit()
-				count = Infected.query.filter_by(survivor=user.id).count()
+				user.count = user.count + 1
 				user.infected = True if count >= 3 else False
 				db.session.commit()
 				result["success"] = True;
@@ -98,6 +98,12 @@ def remove_survivor(data):
 			inventory = Inventory.query.filter_by(survivor=user.id).all()
 			for inv in inventory:
 				db.session.delete(inv)
+			infected = Infected.query.filter_by(survivor=user.id).all()
+			for inf in infected:
+				db.session.delete(inf)
+			infected = Infected.query.filter_by(reporter=user.id).all()
+			for inf in infected:
+				db.session.delete(inf)
 			db.session.delete(user)
 			db.session.commit()
 			result["success"] = True

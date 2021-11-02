@@ -5,6 +5,7 @@ class Survivors(db.Model):
    id = db.Column('id', db.Integer, primary_key = True)
    name = db.Column(db.String(100))
    gender = db.Column(db.String(50))
+   count = db.Column(db.Integer)
    lat = db.Column(db.Float)
    lon = db.Column(db.Float)
    infected = db.Column(db.Boolean)
